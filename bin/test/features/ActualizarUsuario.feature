@@ -3,7 +3,7 @@
 
 Característica: Actualizacion de usuario
 
-	Esquema del escenario: Actualizar de parche de usuario
+	Esquema del escenario: Actualizar usuario
 		Dado que me encuentro en la url <Url> de reqres
 		Cuando realice la solicitud para actualizar un usuario en <EndPoint>
 		Entonces podre observar el estado <Estado> de la solicitud
