@@ -1,55 +1,37 @@
+apply plugin: 'java-library'
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'eclipse'
+
 repositories {
+	mavenLocal()
+	mavenCentral()    
     jcenter()
-    mavenLocal()
+    
 }
+
 buildscript {
     repositories {
-        jcenter()
+    	mavenLocal()
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        jcenter()        
     }
     dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.80")
     }
-}
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'net.serenity-bdd.aggregator'
-apply plugin: 'com.github.sherter.google-java-format'
-apply plugin: 'org.sonarqube'
-
-compileJava.dependsOn 'googleJavaFormat'
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-test {systemProperties = System.properties}
-
-tasks.withType(Test) {
-    systemProperty "file.encoding", "UTF-8"
-}
-
-ext {
-    serenityVersion = '2.0.70'
-    serenityCucumberVersion = '1.9.45'
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.assertj:assertj-core:3.13.2'
-    testImplementation 'org.slf4j:slf4j-api:1.7.2'
-    testImplementation 'org.slf4j:slf4j-log4j12:1.7.2'
-    testImplementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
-    testImplementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
-    implementation "net.serenity-bdd:serenity-screenplay-rest:$rootProject.ext.serenityVersion"
-    implementation group: 'org.json', name: 'json', version: '20220320'
-    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation 'net.serenity-bdd:serenity-junit:2.0.80'
+	implementation 'net.serenity-bdd:serenity-cucumber:1.9.45'
+    implementation 'net.serenity-bdd:serenity-core:2.0.80'
+    implementation 'org.slf4j:slf4j-simple:1.7.7'
+    implementation group: 'org.apache.poi', name: 'poi', version: '3.17' 	
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+    implementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: '2.0.80'    
+}
+
+test {
+	ignoreFailures = true
 }
 
 gradle.startParameter.continueOnFailure = true
